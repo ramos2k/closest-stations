@@ -1,17 +1,19 @@
 const { response } = require("express");
-const stations = require("../utils/stations");
+const Station = require("../Models/station");
 
 const getStations = async (req, res = response) => {
-  const stationsInService = stations.filter(
-    (station) => station.status === "IN_SERVICE"
-  );
+  try {
+    const stations = await Station.find().where("status").equals("IN_SERVICE");
 
-  const body = {
-    total: stationsInService.length,
-    items: stationsInService,
-  };
+    const body = {
+      total: stations.length,
+      items: stations,
+    };
 
-  res.status(200).json(body);
+    res.status(200).json(body);
+  } catch (error) {
+    res.json({ message: error });
+  }
 };
 
 module.exports = {
