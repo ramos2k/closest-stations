@@ -1,7 +1,6 @@
 const { request, response } = require("express");
 const Station = require("../Models/station");
 const filterStations = require("../functions/filterStations");
-//const getDistanceBetweenCoords = require("../functions/getDistanceBetweenCoords");
 
 const getStations = async (req, res = response) => {
   try {
@@ -32,8 +31,7 @@ const getClosestStations = async (req = request, res = response) => {
     const totalStations = closest.length;
 
     if (totalStations === zeroStationsFound) {
-      res.status(404).json({ message: "There is no nearby stations" });
-      return;
+      return res.status(404).json({ message: "There is no nearby stations" });
     }
 
     const body = {
