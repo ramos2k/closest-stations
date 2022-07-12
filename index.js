@@ -1,12 +1,6 @@
-const express = require("express");
+const app = require("./app");
 const mongoose = require("mongoose");
 require("dotenv").config();
-
-const app = express();
-
-app.use(express.json());
-
-app.use("/", require("./routes/stations"));
 
 mongoose
   .connect(process.env.MONGODB)
@@ -16,3 +10,5 @@ mongoose
 app.listen(3000, () => {
   console.log("SERVER RUNNING IN PORT: 3000");
 });
+
+module.exports = app;
